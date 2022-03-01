@@ -1,0 +1,12 @@
+.avatar img{
+    width: 40px;
+}
+
+.name{
+    font-size: 12px;
+    text-align: center;
+}
+
+.item {
+    margin: 0 auto;
+}

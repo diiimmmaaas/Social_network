@@ -1,0 +1,14 @@
+.message{
+    padding: 10px;
+    border-left: 2px solid green;
+}
+
+.avatar{
+    display: inline-block;
+}
+.avatar img{
+    width: 60px;
+}
+span {
+    margin-left: 10px;
+}

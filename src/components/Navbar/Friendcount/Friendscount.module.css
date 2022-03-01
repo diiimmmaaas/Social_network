@@ -1,0 +1,15 @@
+.friendCount {
+
+    margin-top: 50px;
+    color: white;
+}
+
+.title {
+    font-size: 40px;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+

@@ -1,26 +1,67 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Header} from "./components/Header/Header";
+import {Navbar} from "./components/Navbar/Navbar";
+import {Profile} from "./components/Profile/Profile";
+import {Dialogs, DialogsType} from "./components/Dialogs/Dialogs";
+import {Route, Routes} from 'react-router-dom';
+import News from "./components/News/News";
+import Music from "./components/Music/Music";
+import Setting from "./components/Setting/Setting";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+type PostsDataType = {
+    id: number
+    message: string
+    likeCounts: number
 }
 
-export default App;
+type friendsCountDataType = {
+    id:number
+    name:string
+    src:string
+}
+
+type ProfileType = {
+    postsData:Array<PostsDataType>
+}
+
+type NavbarType = {
+    friendsCountData:Array<friendsCountDataType>
+}
+
+type AppPropsType = {
+    profile:ProfileType
+    dialogs:DialogsType
+    navbar:NavbarType
+    newPostText:string
+    dispatch: (action:any) => void
+}
+
+export const App = (props: AppPropsType) => {
+    return (
+        <div className={"app_wrapper"}>
+            <Header/>
+            <Navbar friendsCountData={props.navbar.friendsCountData}/>
+            <div className={"app_wrapper_content"}>
+                <Routes>
+                    <Route path="/profile/*"
+                           element={<Profile
+                               postsData={props.profile.postsData}
+                               dispatch={props.dispatch}
+                               newPostText={props.newPostText}
+                           />}/>
+                    <Route path='/dialogs/*'
+                           element={<Dialogs
+                               dialogsData={props.dialogs.dialogsData}
+                               messagesData={props.dialogs.messagesData}
+                           />}/>
+                    <Route path="/news/*" element={<News/>}/>
+                    <Route path="/music/*" element={<Music/>}/>
+                    <Route path="/setting/*" element={<Setting/>}/>
+                </Routes>
+            </div>
+        </div>
+    )
+}
+
