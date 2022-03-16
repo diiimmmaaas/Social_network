@@ -1,4 +1,3 @@
-
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
@@ -28,7 +27,7 @@ export type DialogsDataType = {
 }
 
 export type MessagesDataType = {
-    id : number
+    id: number
     text: string
     src: string
 }
@@ -53,15 +52,35 @@ export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => StateType
-    subscribe: (observer:()=>void) => void
+    subscribe: (observer: () => void) => void
     _addPost: () => void
     _updateNewPostText: (newText: string) => void
     _updateNewMessageBody: (newBody: string) => void
     _sendMessage: () => void
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
-let store:StoreType = {
+export type ActionType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType
+
+export type AddPostActionType = {
+    type:'ADD-POST'
+}
+
+export type UpdateNewPostTextActionType = {
+    type:'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type UpdateNewMessageBodyActionType = {
+    type:'UPDATE_NEW_MESSAGE_BODY'
+    newBody: string
+}
+
+export type SendMessageActionType = {
+    type:'SEND_MESSAGE'
+}
+
+const store: StoreType = {
     _state: {
         profile: {
             postsData: [
@@ -125,11 +144,11 @@ let store:StoreType = {
         this._state.profile.newPostText = ""
         this._callSubscriber()
     },
-    _updateNewPostText(newText: string) {
+    _updateNewPostText(newText) {
         this._state.profile.newPostText = newText
         this._callSubscriber()
     },
-    _updateNewMessageBody(newBody: string) {
+    _updateNewMessageBody(newBody) {
         this._state.dialogs.newMessageBody = newBody
         this._callSubscriber()
     },
@@ -139,7 +158,7 @@ let store:StoreType = {
         this._state.dialogs.messagesData.push({id: 4, text: body, src: ""})
         this._callSubscriber()
     },
-    dispatch(action: any) {
+    dispatch(action) {
         if (action.type === ADD_POST) {
             this._addPost()
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
@@ -152,12 +171,12 @@ let store:StoreType = {
     },
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateNewPostTextActionCreator = (newText: string) =>
+export const addPostActionCreator = ():AddPostActionType => ({type: ADD_POST})
+export const updateNewPostTextActionCreator = (newText: string):UpdateNewPostTextActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: newText})
 
-export const sendMessageCreator = () => ({type: SEND_MESSAGE})
-export const updateNewMessageBodyCreator = (newBody: string) =>
+export const sendMessageCreator = ():SendMessageActionType => ({type: SEND_MESSAGE})
+export const updateNewMessageBodyCreator = (newBody: string):UpdateNewMessageBodyActionType =>
     ({type: UPDATE_NEW_MESSAGE_BODY, newBody: newBody})
 
 export default store

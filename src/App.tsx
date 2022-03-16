@@ -8,7 +8,15 @@ import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
-import {DialogsType, NavbarType, ProfileType} from "./redux/state";
+import {
+    ActionType,
+    AddPostActionType,
+    DialogsType,
+    NavbarType,
+    ProfileType, SendMessageActionType,
+    UpdateNewMessageBodyActionType,
+    UpdateNewPostTextActionType
+} from "./redux/state";
 
 type AppPropsType = {
     profile:ProfileType
@@ -16,7 +24,7 @@ type AppPropsType = {
     navbar:NavbarType
     newPostText:string
     newMessageBody:string
-    dispatch: (action:any) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const App = (props: AppPropsType) => {

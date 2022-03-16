@@ -1,12 +1,17 @@
 import React, {ChangeEvent} from "react";
-import {addPostActionCreator, PostDataType, updateNewPostTextActionCreator} from "../../../redux/state";
+import {
+    ActionType,
+    addPostActionCreator,
+    PostDataType,
+    updateNewPostTextActionCreator
+} from "../../../redux/state";
 import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 
 type MyPostsPropsType = {
     postsData: Array<PostDataType>
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
     newPostText: string
 }
 
