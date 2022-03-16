@@ -1,10 +1,10 @@
 import classes from "./Frienditem.module.css";
 import React from "react";
 
-type FriendItemPropsType = {
+export type FriendItemPropsType = {
+    id?:number
     src:string
     name:string
-    id?:number
 }
 
 export const FriendItem: React.FC<FriendItemPropsType> = (props) => {

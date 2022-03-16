@@ -16,6 +16,7 @@ let rerenderEntireTree = () => {
                     navbar={store.getState().navbar}
                     dispatch={store.dispatch.bind(store)}
                     newPostText={store.getState().profile.newPostText}
+                    newMessageBody={store.getState().dialogs.newMessageBody}
                 />
             </BrowserRouter>
         </React.StrictMode>,

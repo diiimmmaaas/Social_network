@@ -1,7 +1,67 @@
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-let store = {
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
+const SEND_MESSAGE = 'SEND_MESSAGE'
+
+export type ProfileType = {
+    postsData: Array<PostDataType>
+    newPostText: string
+}
+
+export type PostDataType = {
+    id: number
+    message: string
+    likeCounts: number
+}
+
+export type DialogsType = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    newMessageBody: string
+}
+
+export type DialogsDataType = {
+    id: number
+    name: string
+}
+
+export type MessagesDataType = {
+    id : number
+    text: string
+    src: string
+}
+
+export type NavbarType = {
+    friendsCountData: Array<FriendsCountDataType>
+}
+
+export type FriendsCountDataType = {
+    id: number
+    src: string
+    name: string
+}
+
+export type StateType = {
+    profile: ProfileType
+    dialogs: DialogsType
+    navbar: NavbarType
+}
+
+export type StoreType = {
+    _state: StateType
+    _callSubscriber: () => void
+    getState: () => StateType
+    subscribe: (observer:()=>void) => void
+    _addPost: () => void
+    _updateNewPostText: (newText: string) => void
+    _updateNewMessageBody: (newBody: string) => void
+    _sendMessage: () => void
+    dispatch: (action: any) => void
+}
+
+let store:StoreType = {
     _state: {
         profile: {
             postsData: [
@@ -30,6 +90,7 @@ let store = {
                     src: "https://www.vokrug.tv/pic/person/e/e/5/4/ee54d6e76295bf9d955c93fdd9e2285a.jpeg"
                 },
             ],
+            newMessageBody: ""
         },
         navbar: {
             friendsCountData: [
@@ -50,7 +111,7 @@ let store = {
     getState() {
         return this._state
     },
-    subscribe(observer: any) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
     _addPost() {
@@ -68,19 +129,35 @@ let store = {
         this._state.profile.newPostText = newText
         this._callSubscriber()
     },
+    _updateNewMessageBody(newBody: string) {
+        this._state.dialogs.newMessageBody = newBody
+        this._callSubscriber()
+    },
+    _sendMessage() {
+        let body = this._state.dialogs.newMessageBody
+        this._state.dialogs.newMessageBody = ""
+        this._state.dialogs.messagesData.push({id: 4, text: body, src: ""})
+        this._callSubscriber()
+    },
     dispatch(action: any) {
         if (action.type === ADD_POST) {
             this._addPost()
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._updateNewPostText(action.newText)
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._updateNewMessageBody(action.newBody)
+        } else if (action.type === SEND_MESSAGE) {
+            this._sendMessage()
         }
     },
 }
 
-export const addPostActionCreator = () => ({type:ADD_POST})
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const updateNewPostTextActionCreator = (newText: string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: newText})
 
-
-export const updateNewPostTextActionCreator = (newText:string) =>
-    ({type:UPDATE_NEW_POST_TEXT,newText:newText})
+export const sendMessageCreator = () => ({type: SEND_MESSAGE})
+export const updateNewMessageBodyCreator = (newBody: string) =>
+    ({type: UPDATE_NEW_MESSAGE_BODY, newBody: newBody})
 
 export default store

@@ -3,38 +3,19 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
-import {Dialogs, DialogsType} from "./components/Dialogs/Dialogs";
+import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
-
-
-type PostsDataType = {
-    id: number
-    message: string
-    likeCounts: number
-}
-
-type friendsCountDataType = {
-    id:number
-    name:string
-    src:string
-}
-
-type ProfileType = {
-    postsData:Array<PostsDataType>
-}
-
-type NavbarType = {
-    friendsCountData:Array<friendsCountDataType>
-}
+import {DialogsType, NavbarType, ProfileType} from "./redux/state";
 
 type AppPropsType = {
     profile:ProfileType
     dialogs:DialogsType
     navbar:NavbarType
     newPostText:string
+    newMessageBody:string
     dispatch: (action:any) => void
 }
 
@@ -55,6 +36,7 @@ export const App = (props: AppPropsType) => {
                            element={<Dialogs
                                dialogsData={props.dialogs.dialogsData}
                                messagesData={props.dialogs.messagesData}
+                               newMessageBody={props.newMessageBody}
                            />}/>
                     <Route path="/news/*" element={<News/>}/>
                     <Route path="/music/*" element={<Music/>}/>

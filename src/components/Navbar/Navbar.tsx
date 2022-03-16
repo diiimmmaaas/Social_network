@@ -2,16 +2,11 @@ import React from "react";
 import classes from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
 import {FriendCount} from "./Friendcount/Friendcount";
+import { FriendsCountDataType } from "../../redux/state";
 
 
-type NavbarPropsType = {
-    friendsCountData:Array<ObjectFromArray>
-}
-
-type ObjectFromArray = {
-    id:number
-    name:string
-    src:string
+export type NavbarPropsType = {
+    friendsCountData:Array<FriendsCountDataType>
 }
 
 export const Navbar:React.FC<NavbarPropsType> = (props) => {

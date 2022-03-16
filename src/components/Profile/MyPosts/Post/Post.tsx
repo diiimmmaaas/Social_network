@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Post.module.css";
 
 export type PostPropsType = {
+    id?:string
     message:string
     likeCounts:number
 }

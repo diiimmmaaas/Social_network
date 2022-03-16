@@ -1,15 +1,10 @@
 import classes from "./Friendscount.module.css";
 import React from "react";
-import {FriendItem} from "./Frienditem/Frienditem";
+import {FriendsCountDataType} from "../../../redux/state";
+import { FriendItem } from "./Frienditem/Frienditem";
 
 type FriendCountPropsType = {
-    friendsCountData: Array<ObjectFromArray>
-}
-
-type  ObjectFromArray = {
-    src:string
-    name:string
-    id?:number
+    friendsCountData: Array<FriendsCountDataType>
 }
 
 export const FriendCount: React.FC<FriendCountPropsType> = (props) => {

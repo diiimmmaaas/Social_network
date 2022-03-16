@@ -1,33 +1,24 @@
-import React from "react";
-import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/state";
+import React, {ChangeEvent} from "react";
+import {addPostActionCreator, PostDataType, updateNewPostTextActionCreator} from "../../../redux/state";
 import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 
 type MyPostsPropsType = {
-    postsData:Array<PostPropsType>
-    dispatch: (action:any, text?:string) => void
+    postsData: Array<PostDataType>
+    dispatch: (action: any) => void
     newPostText: string
 }
 
-type PostPropsType = {
-    id:number
-    message:string
-    likeCounts:number
-}
-
-
-export const MyPosts = (props:MyPostsPropsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
     let postsElements = props.postsData.map((p) => <Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
-    let newPostElement:any = React.createRef()
-
-    let addPost = () => {
+    const addPost = () => {
         props.dispatch(addPostActionCreator())
     }
 
-    let onPostChange = () => {
-        let newText = newPostElement.current.value
+    const onPostChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
+        let newText = event.currentTarget.value
         let action = updateNewPostTextActionCreator(newText)
         props.dispatch(action)
     }
@@ -37,7 +28,7 @@ export const MyPosts = (props:MyPostsPropsType) => {
             <h3>My posts</h3>
             <div className={classes.new_post}>
                 <div>
-                    <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
+                    <textarea onChange={onPostChange} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
