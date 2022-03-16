@@ -29,7 +29,6 @@ export type DialogsDataType = {
 export type MessagesDataType = {
     id: number
     text: string
-    src: string
 }
 
 export type NavbarType = {
@@ -99,14 +98,14 @@ const store: StoreType = {
             messagesData: [
                 {
                     id: 1,
-                    text: "Hi",
-                    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxLkbtTa0kfmKizxJgqECQLdlt_xq1R2jEQQ&usqp=CAU"
+                    text: "Hi"
                 },
-                {id: 2, text: "How is your IT-kamasutra", src: "https://html5css.ru/howto/img_avatar2.png"},
+                {id: 2,
+                    text: "How is your IT-kamasutra"
+                },
                 {
                     id: 3,
-                    text: "Ey",
-                    src: "https://www.vokrug.tv/pic/person/e/e/5/4/ee54d6e76295bf9d955c93fdd9e2285a.jpeg"
+                    text: "Ey"
                 },
             ],
             newMessageBody: ""
@@ -155,7 +154,7 @@ const store: StoreType = {
     _sendMessage() {
         let body = this._state.dialogs.newMessageBody
         this._state.dialogs.newMessageBody = ""
-        this._state.dialogs.messagesData.push({id: 4, text: body, src: ""})
+        this._state.dialogs.messagesData.push({id: 4, text: body})
         this._callSubscriber()
     },
     dispatch(action) {

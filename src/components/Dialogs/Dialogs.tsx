@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import classes from './Dialogs.module.css';
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import { DialogsDataType, MessagesDataType } from '../../redux/state';
+import {ActionType, DialogsDataType, MessagesDataType, sendMessageCreator, updateNewMessageBodyCreator} from '../../redux/state';
 
 
 export type DialogsType = {
+    dispatch: (action: ActionType) => void
     dialogsData: Array<DialogsDataType>,
     messagesData: Array<MessagesDataType>
     newMessageBody: string
 }
 
 export const Dialogs:React.FC<DialogsType> = (props) => {
-    let dialogsElements = props.dialogsData.map((d) => <Dialog key={d.id} name={d.name} id={d.id}/>)  //создаем массив элементов после метода .map из dialogsData
-    let messagesElements = props.messagesData.map((m) => <Message key={m.id} text={m.text} src={m.src}/>)  //создаем массив элементов после метода .map из messagesData
+    let dialogsElements = props.dialogsData.map((d, index) => <Dialog key={index} name={d.name} id={d.id}/>)  //создаем массив элементов после метода .map из dialogsData
+    let messagesElements = props.messagesData.map((m, index) => <Message key={index} text={m.text}/>)  //создаем массив элементов после метода .map из messagesData
 
-/*    const onSendMessageClick = () => {
+    const onSendMessageClick = () => {
         props.dispatch(sendMessageCreator())
     }
 
     const onNewMessageChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
         let body = event.currentTarget.value
         props.dispatch(updateNewMessageBodyCreator(body))
-    }*/
+    }
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogs_items}>
@@ -33,8 +34,9 @@ export const Dialogs:React.FC<DialogsType> = (props) => {
                 <div>
                     <div><textarea value={props.newMessageBody}
                                    placeholder={"Enter your message"}
+                                   onChange={onNewMessageChange}
                     ></textarea></div>
-                    <div><button>Send</button></div>
+                    <div><button onClick={onSendMessageClick}>Send</button></div>
                 </div>
             </div>
         </div>

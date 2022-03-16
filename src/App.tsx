@@ -42,6 +42,7 @@ export const App = (props: AppPropsType) => {
                            />}/>
                     <Route path='/dialogs/*'
                            element={<Dialogs
+                               dispatch={props.dispatch}
                                dialogsData={props.dialogs.dialogsData}
                                messagesData={props.dialogs.messagesData}
                                newMessageBody={props.newMessageBody}

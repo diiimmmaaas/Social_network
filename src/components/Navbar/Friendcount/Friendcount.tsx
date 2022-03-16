@@ -8,7 +8,7 @@ type FriendCountPropsType = {
 }
 
 export const FriendCount: React.FC<FriendCountPropsType> = (props) => {
-    let friendCountElement = props.friendsCountData.map((f: any) => <FriendItem id={f.id} src={f.src} name={f.name}/>)
+    let friendCountElement = props.friendsCountData.map((f, index) => <FriendItem key={index} id={f.id} src={f.src} name={f.name}/>)
 
     return (
         <div className={classes.friendCount}>
