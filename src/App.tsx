@@ -13,7 +13,7 @@ import {
     DialogsType,
     NavbarType,
     ProfileType,
-} from "./redux/state";
+} from "./redux/store";
 
 type AppPropsType = {
     profile:ProfileType

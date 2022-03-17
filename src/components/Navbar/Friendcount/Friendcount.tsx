@@ -1,6 +1,6 @@
 import classes from "./Friendscount.module.css";
 import React from "react";
-import {FriendsCountDataType} from "../../../redux/state";
+import {FriendsCountDataType} from "../../../redux/store";
 import { FriendItem } from "./Frienditem/Frienditem";
 
 type FriendCountPropsType = {
