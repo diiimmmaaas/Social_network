@@ -10,12 +10,9 @@ import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {
     ActionType,
-    AddPostActionType,
     DialogsType,
     NavbarType,
-    ProfileType, SendMessageActionType,
-    UpdateNewMessageBodyActionType,
-    UpdateNewPostTextActionType
+    ProfileType,
 } from "./redux/state";
 
 type AppPropsType = {
