@@ -1,5 +1,3 @@
-import {ActionType} from "./store";
-
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 
@@ -43,7 +41,7 @@ export type MessagesDataType = {
     text: string
 }
 
-export const dialogsReducer = (state: dialogsReducerType = initialState, action: ActionType) => {
+export const dialogsReducer = (state: dialogsReducerType = initialState, action: UpdateNewMessageBodyActionType | SendMessageActionType) => {
     const _updateNewMessageBody = (newBody: string) => {
         state.newMessageBody = newBody
     }

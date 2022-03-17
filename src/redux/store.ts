@@ -1,4 +1,7 @@
-/*import {profileReducer} from "./profileReducer";
+import React from "react";
+
+/*
+import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {navbarReducer} from "./navbarReducer";
 
@@ -50,7 +53,7 @@ export type StoreType = {
     getState: () => StateType
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionType) => void
-}*/
+}
 
 export type ActionType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType
 
@@ -72,7 +75,7 @@ export type UpdateNewMessageBodyActionType = {
 export type SendMessageActionType = {
     type:'SEND_MESSAGE'
 }
-/*
+
 
 const store: StoreType = {
     _state: {
@@ -138,5 +141,6 @@ const store: StoreType = {
 }
 
 export default store
+
 */
 

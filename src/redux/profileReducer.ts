@@ -1,5 +1,3 @@
-import { ActionType } from "./store"
-
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
@@ -12,7 +10,7 @@ let initialState = {
     }
 
 
-export type ProfileReducer = {
+export type ProfileReducerType = {
     postsData: Array<PostDataType>
     newPostText: string
 }
@@ -23,7 +21,7 @@ export type PostDataType = {
     likeCounts: number
 }
 
-export const profileReducer = (state: ProfileReducer = initialState, action: ActionType) => {
+export const profileReducer = (state: ProfileReducerType = initialState, action: AddPostActionType | UpdateNewPostTextActionType) => {
     const _addPost = () => {
         let newPost = {
             id: 5,

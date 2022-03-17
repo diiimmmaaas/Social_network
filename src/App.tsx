@@ -8,20 +8,20 @@ import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
-import {
-    ActionType,
-} from "./redux/store";
-import {ProfileReducer} from "./redux/profileReducer";
-import {dialogsReducerType} from "./redux/dialogsReducer";
+import {AddPostActionType, ProfileReducerType, UpdateNewPostTextActionType} from "./redux/profileReducer";
+import {dialogsReducerType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./redux/dialogsReducer";
 import {NavbarReducerType} from "./redux/navbarReducer";
 
 type AppPropsType = {
-    profile:ProfileReducer
+    profile:ProfileReducerType
     dialogs:dialogsReducerType
     navbar:NavbarReducerType
     newPostText:string
     newMessageBody:string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: AddPostActionType
+        | UpdateNewPostTextActionType
+        | UpdateNewMessageBodyActionType
+        | SendMessageActionType) => void
 }
 
 export const App = (props: AppPropsType) => {

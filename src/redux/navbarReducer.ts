@@ -1,5 +1,3 @@
-import {ActionType} from "./store";
-
 let initialState = {
     friendsCountData: [
         {id: 1, src: "https://schoolsw3.com/w3images/avatar6.png", name: "Serega"},
@@ -22,7 +20,7 @@ export type FriendsCountDataType = {
     name: string
 }
 
-export const navbarReducer = (state: NavbarReducerType = initialState, action: ActionType) => {
+export const navbarReducer = (state: NavbarReducerType = initialState, action: any) => {
 
     return state
 }

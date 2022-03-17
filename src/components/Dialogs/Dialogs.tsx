@@ -1,15 +1,19 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css';
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {
-    ActionType,
-} from '../../redux/store';
-import {DialogsDataType, MessagesDataType, sendMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogsReducer';
+    DialogsDataType,
+    MessagesDataType, SendMessageActionType,
+    sendMessageCreator,
+    UpdateNewMessageBodyActionType,
+    updateNewMessageBodyCreator
+} from '../../redux/dialogsReducer';
 
 
 export type DialogsType = {
-    dispatch: (action: ActionType) => void
+    dispatch: (action: UpdateNewMessageBodyActionType
+        | SendMessageActionType) => void
     dialogsData: Array<DialogsDataType>,
     messagesData: Array<MessagesDataType>
     newMessageBody: string
