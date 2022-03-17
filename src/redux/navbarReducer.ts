@@ -1,4 +1,4 @@
-import {ActionType, NavbarType} from "./store";
+import {ActionType} from "./store";
 
 let initialState = {
     friendsCountData: [
@@ -12,7 +12,17 @@ let initialState = {
     ]
 }
 
-export const navbarReducer = (state: NavbarType = initialState, action: ActionType) => {
+export type NavbarReducerType = {
+    friendsCountData: Array<FriendsCountDataType>
+}
+
+export type FriendsCountDataType = {
+    id: number
+    src: string
+    name: string
+}
+
+export const navbarReducer = (state: NavbarReducerType = initialState, action: ActionType) => {
 
     return state
 }

@@ -4,10 +4,8 @@ import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {
     ActionType,
-    DialogsDataType,
-    MessagesDataType,
 } from '../../redux/store';
-import {sendMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogsReducer';
+import {DialogsDataType, MessagesDataType, sendMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogsReducer';
 
 
 export type DialogsType = {

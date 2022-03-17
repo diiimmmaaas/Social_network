@@ -1,4 +1,4 @@
-import {profileReducer} from "./profileReducer";
+/*import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {navbarReducer} from "./navbarReducer";
 
@@ -6,7 +6,6 @@ export type ProfileType = {
     postsData: Array<PostDataType>
     newPostText: string
 }
-
 export type PostDataType = {
     id: number
     message: string
@@ -51,9 +50,10 @@ export type StoreType = {
     getState: () => StateType
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionType) => void
-}
+}*/
 
 export type ActionType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMessageActionType
+
 
 export type AddPostActionType = {
     type:'ADD-POST'
@@ -72,6 +72,7 @@ export type UpdateNewMessageBodyActionType = {
 export type SendMessageActionType = {
     type:'SEND_MESSAGE'
 }
+/*
 
 const store: StoreType = {
     _state: {
@@ -137,3 +138,5 @@ const store: StoreType = {
 }
 
 export default store
+*/
+

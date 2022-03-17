@@ -10,15 +10,15 @@ import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {
     ActionType,
-    DialogsType,
-    NavbarType,
-    ProfileType,
 } from "./redux/store";
+import {ProfileReducer} from "./redux/profileReducer";
+import {dialogsReducerType} from "./redux/dialogsReducer";
+import {NavbarReducerType} from "./redux/navbarReducer";
 
 type AppPropsType = {
-    profile:ProfileType
-    dialogs:DialogsType
-    navbar:NavbarType
+    profile:ProfileReducer
+    dialogs:dialogsReducerType
+    navbar:NavbarReducerType
     newPostText:string
     newMessageBody:string
     dispatch: (action: ActionType) => void

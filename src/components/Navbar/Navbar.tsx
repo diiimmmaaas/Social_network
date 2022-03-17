@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
 import {FriendCount} from "./Friendcount/Friendcount";
-import { FriendsCountDataType } from "../../redux/store";
+import { FriendsCountDataType } from "../../redux/navbarReducer";
 
 
 export type NavbarPropsType = {
