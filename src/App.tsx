@@ -11,6 +11,8 @@ import Setting from "./components/Setting/Setting";
 import {AddPostActionType, ProfileReducerType, UpdateNewPostTextActionType} from "./redux/profileReducer";
 import {dialogsReducerType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./redux/dialogsReducer";
 import {NavbarReducerType} from "./redux/navbarReducer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+
 
 type AppPropsType = {
     profile:ProfileReducerType
@@ -25,6 +27,7 @@ type AppPropsType = {
 }
 
 export const App = (props: AppPropsType) => {
+
     return (
         <div className={"app_wrapper"}>
             <Header/>
@@ -38,8 +41,8 @@ export const App = (props: AppPropsType) => {
                                newPostText={props.newPostText}
                            />}/>
                     <Route path='/dialogs/*'
-                           element={<Dialogs
-                               dispatch={props.dispatch}
+                           element={<DialogsContainer
+                                dispatch={props.dispatch}
                                dialogsData={props.dialogs.dialogsData}
                                messagesData={props.dialogs.messagesData}
                                newMessageBody={props.newMessageBody}

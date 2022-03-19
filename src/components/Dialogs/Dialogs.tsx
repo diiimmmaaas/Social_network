@@ -4,16 +4,13 @@ import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {
     DialogsDataType,
-    MessagesDataType, SendMessageActionType,
-    sendMessageCreator,
-    UpdateNewMessageBodyActionType,
-    updateNewMessageBodyCreator
+    MessagesDataType
 } from '../../redux/dialogsReducer';
 
 
 export type DialogsType = {
-    dispatch: (action: UpdateNewMessageBodyActionType
-        | SendMessageActionType) => void
+    sendMessage: () => void
+    updateNewMessageBody: (body:string) => void
     dialogsData: Array<DialogsDataType>,
     messagesData: Array<MessagesDataType>
     newMessageBody: string
@@ -24,12 +21,12 @@ export const Dialogs: React.FC<DialogsType> = (props) => {
     let messagesElements = props.messagesData.map((m, index) => <Message key={index} text={m.text}/>)  //создаем массив элементов после метода .map из messagesData
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator())
+        props.sendMessage()
     }
 
-    const onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const onNewMessageChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
         let body = event.currentTarget.value
-        props.dispatch(updateNewMessageBodyCreator(body))
+        props.updateNewMessageBody(body)
     }
 
     return (
