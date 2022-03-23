@@ -19,7 +19,6 @@ export type DialogsType = {
 export const Dialogs: React.FC<DialogsType> = (props) => {
     let dialogsElements = props.dialogsData.map((d, index) => <Dialog key={index} name={d.name} id={d.id}/>)  //создаем массив элементов после метода .map из dialogsData
     let messagesElements = props.messagesData.map((m, index) => <Message key={index} text={m.text}/>)  //создаем массив элементов после метода .map из messagesData
-
     const onSendMessageClick = () => {
         props.sendMessage()
     }

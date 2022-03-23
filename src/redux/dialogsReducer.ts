@@ -41,7 +41,7 @@ export type MessagesDataType = {
     text: string
 }
 
-export const dialogsReducer = (state: dialogsReducerType = initialState, action: UpdateNewMessageBodyActionType | SendMessageActionType) => {
+export const dialogsReducer = (state: dialogsReducerType = initialState, action: UpdateNewMessageBodyActionType | SendMessageActionType): dialogsReducerType => {
     const _updateNewMessageBody = (newBody: string) => {
         state.newMessageBody = newBody
     }

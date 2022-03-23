@@ -3,7 +3,6 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -11,7 +10,7 @@ import Setting from "./components/Setting/Setting";
 import {AddPostActionType, ProfileReducerType, UpdateNewPostTextActionType} from "./redux/profileReducer";
 import {dialogsReducerType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./redux/dialogsReducer";
 import {NavbarReducerType} from "./redux/navbarReducer";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {SuperDialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 type AppPropsType = {
@@ -41,12 +40,7 @@ export const App = (props: AppPropsType) => {
                                newPostText={props.newPostText}
                            />}/>
                     <Route path='/dialogs/*'
-                           element={<DialogsContainer
-                                dispatch={props.dispatch}
-                               dialogsData={props.dialogs.dialogsData}
-                               messagesData={props.dialogs.messagesData}
-                               newMessageBody={props.newMessageBody}
-                           />}/>
+                           element={<SuperDialogsContainer/>}/>
                     <Route path="/news/*" element={<News/>}/>
                     <Route path="/music/*" element={<Music/>}/>
                     <Route path="/setting/*" element={<Setting/>}/>

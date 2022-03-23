@@ -1,38 +1,33 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import {
-    DialogsDataType,
-    MessagesDataType, SendMessageActionType,
+    SendMessageActionType,
     sendMessageCreator,
     UpdateNewMessageBodyActionType,
     updateNewMessageBodyCreator
 } from '../../redux/dialogsReducer';
 import {Dialogs} from "./Dialogs";
+import { connect } from 'react-redux';
+import {RootStoreType} from "../../redux/reduxStore";
 
-
-export type DialogsContainerType = {
-    dispatch: (action: UpdateNewMessageBodyActionType
-        | SendMessageActionType) => void
-    dialogsData: Array<DialogsDataType>,
-    messagesData: Array<MessagesDataType>
-    newMessageBody: string
+// react-redux connect
+let mapStateToProps = (state: RootStoreType) => {
+    return {
+        dialogsData: state.dialogs.dialogsData,
+        messagesData: state.dialogs.messagesData,
+        newMessageBody: state.dialogs.newMessageBody
+    }
 }
 
-export const DialogsContainer: React.FC<DialogsContainerType> = (props) => {
-
-    const sendMessage = () => {
-        props.dispatch(sendMessageCreator())
+let mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyActionType | SendMessageActionType) => void) => {
+    return {
+        updateNewMessageBody: (body: string) => {
+            dispatch(updateNewMessageBodyCreator(body))
+        },
+        sendMessage: () => {
+            dispatch(sendMessageCreator())
+        }
     }
-
-    const updateNewMessageBody = (body:string) => {
-        props.dispatch(updateNewMessageBodyCreator(body))
-    }
-
-    return (
-        <Dialogs sendMessage={sendMessage}
-                 updateNewMessageBody={updateNewMessageBody}
-                 dialogsData={props.dialogsData}
-                 messagesData={props.messagesData}
-                 newMessageBody={props.newMessageBody}/>
-    )
 }
+
+export const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

@@ -5,19 +5,22 @@ import store from "./redux/reduxStore";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
+import {Provider} from "react-redux";
 
 let rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App
-                    profile={store.getState().profile}
-                    dialogs={store.getState().dialogs}
-                    navbar={store.getState().navbar}
-                    dispatch={store.dispatch.bind(store)}
-                    newPostText={store.getState().profile.newPostText}
-                    newMessageBody={store.getState().dialogs.newMessageBody}
-                />
+                <Provider store={store}>
+                    <App
+                        profile={store.getState().profile}
+                        dialogs={store.getState().dialogs}
+                        navbar={store.getState().navbar}
+                        dispatch={store.dispatch.bind(store)}
+                        newPostText={store.getState().profile.newPostText}
+                        newMessageBody={store.getState().dialogs.newMessageBody}
+                    />
+                </Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
