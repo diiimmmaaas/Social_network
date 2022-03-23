@@ -22,27 +22,28 @@ export type PostDataType = {
 }
 
 export const profileReducer = (state: ProfileReducerType = initialState, action: AddPostActionType | UpdateNewPostTextActionType) => {
+    let stateCopy = {...state}
     const _addPost = () => {
         let newPost = {
             id: 5,
             message: state.newPostText,
             likeCounts: 0
         };
-
-        state.postsData.push(newPost)
-        state.newPostText = ""
+        stateCopy.postsData = [...state.postsData]
+        stateCopy.postsData.push(newPost)
+        stateCopy.newPostText = ""
     }
     const _updateNewPostText = (newText: string) => {
-        state.newPostText = newText
+        stateCopy.newPostText = newText
     }
 
     switch (action.type) {
         case ADD_POST:
             _addPost()
-            return state;
+            return stateCopy;
         case UPDATE_NEW_POST_TEXT:
             _updateNewPostText(action.newText)
-            return state;
+            return stateCopy;
         default:
             return state
     }

@@ -42,24 +42,25 @@ export type MessagesDataType = {
 }
 
 export const dialogsReducer = (state: dialogsReducerType = initialState, action: UpdateNewMessageBodyActionType | SendMessageActionType): dialogsReducerType => {
+    let stateCopy = {...state}
     const _updateNewMessageBody = (newBody: string) => {
-        state.newMessageBody = newBody
+        stateCopy.newMessageBody = newBody
     }
     const _sendMessage = () => {
-        let body = state.newMessageBody
-        state.newMessageBody = ""
-        state.messagesData.push({id: 4, text: body})
+        let body = stateCopy.newMessageBody
+        stateCopy.newMessageBody = ""
+        stateCopy.messagesData.push({id: 4, text: body})
     }
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             _updateNewMessageBody(action.newBody)
-            return state;
+            return stateCopy;
         case SEND_MESSAGE:
             _sendMessage()
-            return state;
+            return stateCopy;
         default:
-            return state
+            return stateCopy
     }
 }
 
