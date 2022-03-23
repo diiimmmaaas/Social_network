@@ -7,22 +7,12 @@ import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
-import {AddPostActionType, ProfileReducerType, UpdateNewPostTextActionType} from "./redux/profileReducer";
-import {dialogsReducerType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./redux/dialogsReducer";
 import {NavbarReducerType} from "./redux/navbarReducer";
-import {SuperDialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 type AppPropsType = {
-    profile:ProfileReducerType
-    dialogs:dialogsReducerType
     navbar:NavbarReducerType
-    newPostText:string
-    newMessageBody:string
-    dispatch: (action: AddPostActionType
-        | UpdateNewPostTextActionType
-        | UpdateNewMessageBodyActionType
-        | SendMessageActionType) => void
 }
 
 export const App = (props: AppPropsType) => {
@@ -34,13 +24,9 @@ export const App = (props: AppPropsType) => {
             <div className={"app_wrapper_content"}>
                 <Routes>
                     <Route path="/profile/*"
-                           element={<Profile
-                               postsData={props.profile.postsData}
-                               dispatch={props.dispatch}
-                               newPostText={props.newPostText}
-                           />}/>
+                           element={<Profile/>}/>
                     <Route path='/dialogs/*'
-                           element={<SuperDialogsContainer/>}/>
+                           element={<DialogsContainer/>}/>
                     <Route path="/news/*" element={<News/>}/>
                     <Route path="/music/*" element={<Music/>}/>
                     <Route path="/setting/*" element={<Setting/>}/>

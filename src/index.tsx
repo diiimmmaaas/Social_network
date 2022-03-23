@@ -13,12 +13,7 @@ let rerenderEntireTree = () => {
             <BrowserRouter>
                 <Provider store={store}>
                     <App
-                        profile={store.getState().profile}
-                        dialogs={store.getState().dialogs}
                         navbar={store.getState().navbar}
-                        dispatch={store.dispatch.bind(store)}
-                        newPostText={store.getState().profile.newPostText}
-                        newMessageBody={store.getState().dialogs.newMessageBody}
                     />
                 </Provider>
             </BrowserRouter>

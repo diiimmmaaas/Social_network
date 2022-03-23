@@ -30,4 +30,4 @@ let mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyActionType | Se
     }
 }
 
-export const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
