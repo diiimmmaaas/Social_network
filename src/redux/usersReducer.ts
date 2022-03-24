@@ -11,15 +11,15 @@ export type UsersReducerType = {
 }
 
 export type UsersType = {
+    name: string
     id: number
-    avatarUrl: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
+    uniqueUrlName: null | string
+    photos: {
+        small: string | undefined
+        large: string | undefined
     }
+    followed: boolean
+    status: null | string
 }
 
 export const usersReducer = (state: UsersReducerType = initialState, action: FollowActionType | UnFollowActionType | setUsersActionType): UsersReducerType => {

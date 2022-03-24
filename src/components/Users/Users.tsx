@@ -2,6 +2,7 @@ import React from 'react'
 import styles from "./Users.module.css"
 import {UsersType} from "../../redux/usersReducer";
 import axios from 'axios';
+import userPhoto from '../../assets/img/user.png'
 
 type UsersPropsType = {
     users: Array<UsersType>
@@ -12,37 +13,10 @@ type UsersPropsType = {
 
 
 export const Users = (props: UsersPropsType) => {
-    if ( props.users.length === 0) {
-
-/*        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-
-        })*/
-        props.setUsers([
-            {
-                id: 1,
-                avatarUrl: "https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__340.png",
-                followed: false,
-                fullName: "Dmitry",
-                status: "I am a boss",
-                location: {city: "Minsk", country: "Belarus"}
-            },
-            {
-                id: 2,
-                avatarUrl: "https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__340.png",
-                followed: true,
-                fullName: "Sasha",
-                status: "I am a boss too",
-                location: {city: "Moscow", country: "Russia"}
-            },
-            {
-                id: 3,
-                avatarUrl: "https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792__340.png",
-                followed: false,
-                fullName: "Andrew",
-                status: "I am a boss too",
-                location: {city: "Kiev", country: "Ukraine"}
-            },
-        ])
+    if (props.users.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items)
+        })
     }
 
     return (
@@ -50,7 +24,7 @@ export const Users = (props: UsersPropsType) => {
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.avatarUrl} className={styles.userPhoto}/>
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
                     </div>
                     <div>
                         {u.followed
@@ -61,7 +35,7 @@ export const Users = (props: UsersPropsType) => {
                 <span>
                     <span>
                         <div>
-                            {u.fullName}
+                            {u.name}
                         </div>
                         <div>
                             {u.status}
@@ -69,10 +43,10 @@ export const Users = (props: UsersPropsType) => {
                     </span>
                     <span>
                         <div>
-                            {u.location.country}
+                            {"u.location.country"}
                         </div>
                         <div>
-                            {u.location.city}
+                            {"u.location.city"}
                         </div>
                     </span>
                 </span>
