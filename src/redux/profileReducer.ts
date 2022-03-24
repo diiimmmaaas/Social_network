@@ -21,7 +21,7 @@ export type PostDataType = {
     likeCounts: number
 }
 
-export const profileReducer = (state: ProfileReducerType = initialState, action: AddPostActionType | UpdateNewPostTextActionType) => {
+export const profileReducer = (state: ProfileReducerType = initialState, action: AddPostActionType | UpdateNewPostTextActionType):ProfileReducerType => {
 
     switch (action.type) {
         case ADD_POST:

@@ -9,6 +9,8 @@ import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {NavbarReducerType} from "./redux/navbarReducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
+
 
 
 type AppPropsType = {
@@ -29,6 +31,7 @@ export const App = (props: AppPropsType) => {
                            element={<DialogsContainer/>}/>
                     <Route path="/news/*" element={<News/>}/>
                     <Route path="/music/*" element={<Music/>}/>
+                    <Route path="/users/*" element={<UsersContainer/>}/>
                     <Route path="/setting/*" element={<Setting/>}/>
                 </Routes>
             </div>
