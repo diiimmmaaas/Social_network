@@ -15,6 +15,7 @@ let mapStateToProps = (state: RootStoreType) => {
 }
 
 let mapDispatchToProps = (dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void) => {
+
     return {
         addPost: () => {
             dispatch(addPostActionCreator())

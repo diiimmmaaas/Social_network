@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {
@@ -14,13 +14,22 @@ type MyPostsPropsType = {
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
+    let [error, setError] = useState<string | null>(null)
+
     let postsElements = props.postsData.map((p) => <Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
     const onAddPost = () => {
-        props.addPost()
+        if (props.newPostText.trim() !== ""){
+            props.addPost()
+
+        } else {
+            setError("Title is required")
+        }
+
     }
 
     const onPostChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
+        setError(null)
         let newText = event.currentTarget.value
         props.updateNewPostText(newText)
     }
@@ -31,6 +40,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div className={classes.new_post}>
                 <div>
                     <textarea onChange={onPostChange} value={props.newPostText}/>
+                    {error && <span>{error}</span>}
                 </div>
                 <div>
                     <button onClick={onAddPost}>Add post</button>
