@@ -1,3 +1,13 @@
 .userPhoto {
     width: 100px;
 }
+
+.selectedPage {
+    font-weight: bold;
+    color: gold;
+}
+
+.pagesCountOfUsers {
+    display: flex;
+    flex-wrap: wrap;
+}
