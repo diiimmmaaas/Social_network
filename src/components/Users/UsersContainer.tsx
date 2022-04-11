@@ -1,17 +1,17 @@
 import {connect} from "react-redux";
 import {RootStoreType} from "../../redux/reduxStore";
 import {
-    ActionType,
-    followAC,
-    setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    unfollowAC,
+    follow,
+    setCurrentPage, setIsFetching,
+    setUsers,
+    setUsersTotalCount,
+    unfollow,
     UsersType
 } from '../../redux/usersReducer';
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
+import {Prealoder} from "../common/Prealoder/Prealoder";
 
 interface UsersPropsType {
     users: Array<UsersType>
@@ -22,35 +22,44 @@ interface UsersPropsType {
     pageSize: number
     currentPage: number
     setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
+    setUsersTotalCount: (totalCount: number) => void
+    isFetching: boolean
+    setIsFetching: (isFetching: boolean) => void
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
+        this.props.setIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsersTotalCount(response.data.totalCount)
             })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
+        this.props.setIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
             })
     }
 
     render() {
-        return <Users totalUsersCount={this.props.totalUsersCount}
-                                pageSize={this.props.pageSize}
-                                onPageChanged={this.onPageChanged}
-                                users={this.props.users}
-                                follow={this.props.follow}
-                                unfollow={this.props.unfollow}
-                                currentPage={this.props.currentPage}
-        />
+        return <>
+            {this.props.isFetching ? <Prealoder/> : null}
+            <Users totalUsersCount={this.props.totalUsersCount}
+                   pageSize={this.props.pageSize}
+                   onPageChanged={this.onPageChanged}
+                   users={this.props.users}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
+                   currentPage={this.props.currentPage}
+            />
+        </>
     }
 }
 
@@ -59,28 +68,11 @@ const mapStateToProps = (state: RootStoreType) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setIsFetching,
+})(UsersContainer)

@@ -13,7 +13,7 @@ export const Navbar:React.FC<NavbarPropsType> = (props) => {
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
-                <NavLink to="/profile"
+                <NavLink to="/profile/*"
                          className={navData => navData.isActive ? classes.active : classes.item}>Profile</NavLink>
             </div>
             <div className={classes.item}>

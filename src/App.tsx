@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
 import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -10,6 +9,7 @@ import Setting from "./components/Setting/Setting";
 import {NavbarReducerType} from "./redux/navbarReducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 
@@ -26,7 +26,7 @@ export const App = (props: AppPropsType) => {
             <div className={"app_wrapper_content"}>
                 <Routes>
                     <Route path="/profile/*"
-                           element={<Profile/>}/>
+                           element={<ProfileContainer/>}/>
                     <Route path='/dialogs/*'
                            element={<DialogsContainer/>}/>
                     <Route path="/news/*" element={<News/>}/>
