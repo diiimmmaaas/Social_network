@@ -8,7 +8,7 @@ let initialState = {
         {id: 2, message: "It's my first post", likeCounts: 30},
     ],
     newPostText: "",
-    profile: {
+    profile: null/*{
         aboutMe: "",
         contacts: {
             facebook: "",
@@ -28,14 +28,14 @@ let initialState = {
             small: "",
             large: "",
         },
-    }
+    }*/
 }
 
 
 export type ProfileReducerType = {
     postsData: Array<PostDataType>
     newPostText: string
-    profile: ProfileType
+    profile: ProfileType | null
 }
 
 export type ProfileType = {

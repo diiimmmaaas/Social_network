@@ -12,9 +12,8 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
-
 type AppPropsType = {
-    navbar:NavbarReducerType
+    navbar: NavbarReducerType
 }
 
 export const App = (props: AppPropsType) => {
@@ -25,8 +24,9 @@ export const App = (props: AppPropsType) => {
             <Navbar friendsCountData={props.navbar.friendsCountData}/>
             <div className={"app_wrapper_content"}>
                 <Routes>
-                    <Route path="/profile/*"
+                    <Route path="/profile"
                            element={<ProfileContainer/>}/>
+                    <Route path='/profile/:userID' element={<ProfileContainer/>}/>
                     <Route path='/dialogs/*'
                            element={<DialogsContainer/>}/>
                     <Route path="/news/*" element={<News/>}/>

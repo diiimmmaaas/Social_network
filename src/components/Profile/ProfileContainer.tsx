@@ -1,20 +1,26 @@
-import React from "react"
+import React, {JSXElementConstructor} from "react"
 import {Profile} from "./Profile";
 import axios from "axios";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import {RootStoreType} from "../../redux/reduxStore";
-import { ProfileType, setUsersProfile} from "../../redux/profileReducer";
+import {ProfileType, setUsersProfile} from "../../redux/profileReducer";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 
-interface ProfileContainerPropsType {
+type MapStatePropsType = {
+    profile: ProfileType | null;
+}
+type mapDispatchToPropsType = {
     setUsersProfile: (profile: ProfileType) => void
-    profile: ProfileType
 }
 
+export type ProfileContainerPropsType = MapStatePropsType & mapDispatchToPropsType
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        // @ts-ignore
+        let userID = this.props.router.params.userID
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID)
             .then(response => {
                 this.props.setUsersProfile(response.data)
             })
@@ -27,10 +33,27 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-let mapStateToProps = (state: RootStoreType) => {
+let mapStateToProps = (state: RootStoreType):MapStatePropsType => {
     return {
         profile: state.profile.profile
     }
 }
 
-export default connect(mapStateToProps, {setUsersProfile})(ProfileContainer)
+//оболочка для классовой компонеты
+export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
+    function ComponentWithRouterProp(props: any) {
+        let location = useLocation();
+        let navigate = useNavigate();
+        let params = useParams();
+        return (
+            <Component
+                {...props}
+                router={{location, navigate, params}}
+            />
+        );
+    }
+
+    return ComponentWithRouterProp;
+}
+
+export default connect(mapStateToProps, {setUsersProfile})(withRouter(ProfileContainer))
