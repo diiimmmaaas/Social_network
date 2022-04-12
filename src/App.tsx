@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
@@ -10,6 +9,7 @@ import {NavbarReducerType} from "./redux/navbarReducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 type AppPropsType = {
@@ -20,7 +20,7 @@ export const App = (props: AppPropsType) => {
 
     return (
         <div className={"app_wrapper"}>
-            <Header/>
+            <HeaderContainer/>
             <Navbar friendsCountData={props.navbar.friendsCountData}/>
             <div className={"app_wrapper_content"}>
                 <Routes>
