@@ -1,10 +1,10 @@
 import React, {JSXElementConstructor} from "react"
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {RootStoreType} from "../../redux/reduxStore";
 import {ProfileType, setUsersProfile} from "../../redux/profileReducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {profileAPI} from "../../api/api";
 
 
 type MapStatePropsType = {
@@ -20,8 +20,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         // @ts-ignore
         let userID = this.props.router.params.userID
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID)
-            .then(response => {
+
+        profileAPI.setProfile(userID).then(response => {
                 this.props.setUsersProfile(response.data)
             })
     }
@@ -33,7 +33,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-let mapStateToProps = (state: RootStoreType):MapStatePropsType => {
+let mapStateToProps = (state: RootStoreType): MapStatePropsType => {
     return {
         profile: state.profile.profile
     }

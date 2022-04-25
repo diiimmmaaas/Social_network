@@ -8,7 +8,8 @@ let initialState = {
         {id: 2, message: "It's my first post", likeCounts: 30},
     ],
     newPostText: "",
-    profile: null/*{
+    profile: null
+    /*{
         aboutMe: "",
         contacts: {
             facebook: "",
