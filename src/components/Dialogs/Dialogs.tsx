@@ -6,6 +6,7 @@ import {
     DialogsDataType,
     MessagesDataType
 } from '../../redux/dialogsReducer';
+import { Navigate } from 'react-router-dom';
 
 
 export type DialogsType = {
@@ -14,6 +15,7 @@ export type DialogsType = {
     dialogsData: Array<DialogsDataType>,
     messagesData: Array<MessagesDataType>
     newMessageBody: string
+    isAuth: boolean
 }
 
 export const Dialogs: React.FC<DialogsType> = (props) => {
@@ -27,6 +29,9 @@ export const Dialogs: React.FC<DialogsType> = (props) => {
         let body = event.currentTarget.value
         props.updateNewMessageBody(body)
     }
+
+
+    if (!props.isAuth) return <Navigate to={'/login'}/>
 
     return (
         <div className={classes.dialogs}>

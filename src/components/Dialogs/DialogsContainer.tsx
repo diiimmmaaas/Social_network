@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './Dialogs.module.css';
 import {
     SendMessageActionType,
     sendMessageCreator,
@@ -15,7 +14,8 @@ let mapStateToProps = (state: RootStoreType) => {
     return {
         dialogsData: state.dialogs.dialogsData,
         messagesData: state.dialogs.messagesData,
-        newMessageBody: state.dialogs.newMessageBody
+        newMessageBody: state.dialogs.newMessageBody,
+        isAuth: state.auth.isAuth
     }
 }
 
