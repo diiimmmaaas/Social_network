@@ -2,16 +2,16 @@ import React, {JSXElementConstructor} from "react"
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {RootStoreType} from "../../redux/reduxStore";
-import {ProfileType, setUsersProfile} from "../../redux/profileReducer";
+import {getUserProfile, ProfileType} from "../../redux/profileReducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {profileAPI} from "../../api/api";
+import {ThunkType} from "../../redux/usersReducer";
 
 
 type MapStatePropsType = {
     profile: ProfileType | null;
 }
 type mapDispatchToPropsType = {
-    setUsersProfile: (profile: ProfileType) => void
+    getUserProfile: (userId: string) => ThunkType
 }
 
 export type ProfileContainerPropsType = MapStatePropsType & mapDispatchToPropsType
@@ -19,11 +19,11 @@ export type ProfileContainerPropsType = MapStatePropsType & mapDispatchToPropsTy
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         // @ts-ignore
-        let userID = this.props.router.params.userID
-
-        profileAPI.setProfile(userID).then(response => {
-                this.props.setUsersProfile(response.data)
-            })
+        let userID = this.props.router.params.userID  // в userId приходит undefined, нужно ИСПРАВИТЬ как-то
+        if (!userID) {
+            userID = 23014
+        }
+        this.props.getUserProfile(userID)
     }
 
     render() {
@@ -56,4 +56,4 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, {setUsersProfile})(withRouter(ProfileContainer))
+export default connect(mapStateToProps, {getUserProfile})(withRouter(ProfileContainer))

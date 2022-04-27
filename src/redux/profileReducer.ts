@@ -1,3 +1,6 @@
+import {userAPI} from "../api/api";
+import {ThunkType} from "./usersReducer";
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_PROFILE = 'SET-PROFILE'
@@ -113,7 +116,17 @@ export type SetProfileActionType = {
     profile: ProfileType
 }
 
+// action creator
 export const addPost = (): AddPostActionType => ({type: ADD_POST})
 export const updateNewPostText = (newText: string): UpdateNewPostTextActionType =>
     ({type: UPDATE_NEW_POST_TEXT, newText})
 export const setUsersProfile = (profile: ProfileType): SetProfileActionType => ({type: SET_PROFILE, profile})
+
+// thunk creator
+export const getUserProfile = (userID: string): ThunkType => {
+    return (dispatch) => {
+        userAPI.getProfile(userID).then(response => {
+            dispatch(setUsersProfile(response.data))
+        })
+    }
+}
