@@ -8,6 +8,7 @@ import {
 import {Dialogs} from "./Dialogs";
 import { connect } from 'react-redux';
 import {RootStoreType} from "../../redux/reduxStore";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 // react-redux connect
 let mapStateToProps = (state: RootStoreType) => {
@@ -15,7 +16,6 @@ let mapStateToProps = (state: RootStoreType) => {
         dialogsData: state.dialogs.dialogsData,
         messagesData: state.dialogs.messagesData,
         newMessageBody: state.dialogs.newMessageBody,
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -30,4 +30,6 @@ let mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyActionType | Se
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
