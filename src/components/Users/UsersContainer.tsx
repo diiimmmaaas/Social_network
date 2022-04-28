@@ -9,6 +9,8 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Prealoder} from "../common/Prealoder/Prealoder";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 interface UsersPropsType {
     users: Array<UsersType>
@@ -61,8 +63,7 @@ const mapStateToProps = (state: RootStoreType) => {
 }
 
 
-export default connect(mapStateToProps, {
-    getUsers, follow, unfollow, setCurrentPage
-})
-    // @ts-ignore
-    (UsersContainer)
+export default compose<React.ComponentType> (
+    withAuthRedirect,
+    connect(mapStateToProps, {getUsers, follow, unfollow, setCurrentPage})
+)(UsersContainer)

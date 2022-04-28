@@ -6,7 +6,6 @@ import {
     DialogsDataType,
     MessagesDataType
 } from '../../redux/dialogsReducer';
-import { Navigate } from 'react-router-dom';
 
 
 export type DialogsType = {
