@@ -1,57 +1,54 @@
-import React, {ChangeEvent, useState} from "react";
+import React from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {
     PostDataType
 } from "../../../redux/profileReducer";
+import {Field, reduxForm} from "redux-form";
 
 
 type MyPostsPropsType = {
     postsData: Array<PostDataType>
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-    newPostText: string
+    addPost: (newPostText: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
-    let [error, setError] = useState<string | null>(null)
 
     let postsElements = props.postsData.map((p) => <Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
-    const onAddPost = () => {
-        if (props.newPostText.trim() !== ""){
-            props.addPost()
-
-        } else {
-            setError("Title is required")
-        }
-
-    }
-
-    const onPostChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
-        setError(null)
-        let newText = event.currentTarget.value
-        props.updateNewPostText(newText)
+    const onAddPost = (values: any) => {
+        props.addPost(values.newPostText)
     }
 
     return (
         <div className={classes.content_posts}>
             <h3>My posts</h3>
-            <div className={classes.new_post}>
-                <div>
-                    <textarea onChange={onPostChange} value={props.newPostText}/>
-                    {error && <span>{error}</span>}
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={classes.posts}>
                 {postsElements}
             </div>
         </div>
     )
 }
+
+
+type AddNewPostFormPropsType = {}
+
+export const AddNewPostForm: React.FC<AddNewPostFormPropsType> = (props) => {
+    return (
+        // @ts-ignore
+        <form className={classes.new_post} onSubmit={props.handleSubmit}>
+            <div>
+                <Field name={'newPostText'} component={'textarea'}/>
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+        </form>
+    )
+}
+
+let AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
 
 

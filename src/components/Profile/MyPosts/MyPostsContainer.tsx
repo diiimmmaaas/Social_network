@@ -1,7 +1,6 @@
 import {
+    ActionType,
     addPost,
-    AddPostActionType,
-    updateNewPostText, UpdateNewPostTextActionType
 } from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {RootStoreType} from "../../../redux/reduxStore";
@@ -10,20 +9,15 @@ import { connect } from "react-redux";
 let mapStateToProps = (state: RootStoreType) => {
     return {
         postsData: state.profile.postsData,
-        newPostText: state.profile.newPostText
     }
 }
 
-let mapDispatchToProps = (dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void) => {
+let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
 
     return {
-        addPost: () => {
-            dispatch(addPost())
+        addPost: (newPostText: string) => {
+            dispatch(addPost(newPostText))
         },
-        updateNewPostText: (newText: string) => {
-            let action = updateNewPostText(newText)
-            dispatch(action)
-        }
     }
 }
 

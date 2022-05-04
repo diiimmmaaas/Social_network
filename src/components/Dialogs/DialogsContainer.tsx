@@ -3,7 +3,6 @@ import {
     SendMessageActionType,
     sendMessageCreator,
     UpdateNewMessageBodyActionType,
-    updateNewMessageBodyCreator
 } from '../../redux/dialogsReducer';
 import {Dialogs} from "./Dialogs";
 import { connect } from 'react-redux';
@@ -16,17 +15,13 @@ let mapStateToProps = (state: RootStoreType) => {
     return {
         dialogsData: state.dialogs.dialogsData,
         messagesData: state.dialogs.messagesData,
-        newMessageBody: state.dialogs.newMessageBody,
     }
 }
 
 let mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyActionType | SendMessageActionType) => void) => {
     return {
-        updateNewMessageBody: (body: string) => {
-            dispatch(updateNewMessageBodyCreator(body))
-        },
-        sendMessage: () => {
-            dispatch(sendMessageCreator())
+        sendMessage: (newMessageBody: string) => {
+            dispatch(sendMessageCreator(newMessageBody))
         }
     }
 }
@@ -36,3 +31,5 @@ export const DialogsContainer =  compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect
 )(Dialogs)
+
+
