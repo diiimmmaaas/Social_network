@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import {
     PostDataType
 } from "../../../redux/profileReducer";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type MyPostsPropsType = {
@@ -32,11 +32,12 @@ export const MyPosts = (props: MyPostsPropsType) => {
 }
 
 
-type AddNewPostFormPropsType = {}
+type AddNewPostFormDataType = {
+    newPostText: string
+}
 
-export const AddNewPostForm: React.FC<AddNewPostFormPropsType> = (props) => {
+export const AddNewPostForm: React.FC<InjectedFormProps<AddNewPostFormDataType>> = (props) => {
     return (
-        // @ts-ignore
         <form className={classes.new_post} onSubmit={props.handleSubmit}>
             <div>
                 <Field name={'newPostText'} component={'textarea'}/>
@@ -48,7 +49,7 @@ export const AddNewPostForm: React.FC<AddNewPostFormPropsType> = (props) => {
     )
 }
 
-let AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
+let AddNewPostFormRedux = reduxForm<AddNewPostFormDataType>({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
 
 
