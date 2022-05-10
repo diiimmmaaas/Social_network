@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from "./Header.module.css";
 import {NavLink} from "react-router-dom";
+import {ThunkType} from "../../redux/usersReducer";
 
 
 export type HeaderPropsType = {
     isAuth: boolean
     login: string | null
+    logout: () => ThunkType
 }
 
 export const Header = (props: HeaderPropsType) => {
@@ -17,7 +19,7 @@ export const Header = (props: HeaderPropsType) => {
             />
             <div className={styles.loginBlock}>
                 {props.isAuth
-                    ? props.login
+                    ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div>
                     : <NavLink to="/login">Login</NavLink>
                 }
             </div>
