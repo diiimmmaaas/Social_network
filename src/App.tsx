@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from 'react-router-dom';
@@ -7,39 +7,56 @@ import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {NavbarReducerType} from "./redux/navbarReducer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from "./components/Profile/ProfileContainer";
+import ProfileContainer, {withRouter} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
-
+import {connect} from "react-redux";
+import {getAuthUserData} from "./redux/auth-reducer";
+import {ThunkType} from "./redux/usersReducer";
+import {compose} from "redux";
+import {RootStoreType} from "./redux/reduxStore";
 
 
 type AppPropsType = {
     navbar: NavbarReducerType
+    getAuthUserData: () => ThunkType
 }
 
-export const App = (props: AppPropsType) => {
+class App extends Component<AppPropsType> {
+    componentDidMount() {
+        this.props.getAuthUserData()
+    }
 
-    return (
-        <div className={"app_wrapper"}>
-            <HeaderContainer/>
-            <Navbar friendsCountData={props.navbar.friendsCountData}/>
-            <div className={"app_wrapper_content"}>
-                <Routes>
-                    <Route path="/profile"
-                           element={<ProfileContainer/>}/>
-                    <Route path='/profile/:userID' element={<ProfileContainer/>}/>
-                    <Route path='/dialogs/*'
-                           element={<DialogsContainer/>}/>
-                    <Route path="/news/*" element={<News/>}/>
-                    <Route path="/music/*" element={<Music/>}/>
-                    <Route path="/users/*" element={<UsersContainer/>}/>
-                    <Route path="/setting/*" element={<Setting/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                </Routes>
+    render() {
+        return (
+            <div className={"app_wrapper"}>
+                <HeaderContainer/>
+                <Navbar friendsCountData={this.props.navbar.friendsCountData}/>
+                <div className={"app_wrapper_content"}>
+                    <Routes>
+                        <Route path="/profile"
+                               element={<ProfileContainer/>}/>
+                        <Route path='/profile/:userID' element={<ProfileContainer/>}/>
+                        <Route path='/dialogs/*'
+                               element={<DialogsContainer/>}/>
+                        <Route path="/news/*" element={<News/>}/>
+                        <Route path="/music/*" element={<Music/>}/>
+                        <Route path="/users/*" element={<UsersContainer/>}/>
+                        <Route path="/setting/*" element={<Setting/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                    </Routes>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
+const mapStateToProps = (state: RootStoreType) => ({
+    navbar: state.navbar
+})
+
+export default compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps, {getAuthUserData})
+)(App)

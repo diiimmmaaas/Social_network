@@ -1,4 +1,4 @@
-import {AnyAction, Dispatch} from "redux";
+import {AnyAction} from "redux";
 import {userAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {RootStoreType} from "./reduxStore";

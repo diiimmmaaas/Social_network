@@ -5,13 +5,14 @@ import {RootStoreType} from "../../redux/reduxStore";
 import {getUserProfile, getUserStatus, ProfileType, updateUserStatus} from "../../redux/profileReducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {ThunkType} from "../../redux/usersReducer";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 
 
 type MapStatePropsType = {
-    profile: ProfileType | null;
+    profile: ProfileType | null
     status: string
+    authorizesUserId: number | null
+    isAuth: boolean
 }
 type mapDispatchToPropsType = {
     getUserProfile: (userId: string) => ThunkType
@@ -26,7 +27,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         // @ts-ignore
         let userID = this.props.router.params.userID  // в userId приходит undefined, нужно ИСПРАВИТЬ как-то
         if (!userID) {
-            userID = 23014
+            userID = this.props.authorizesUserId
         }
         this.props.getUserProfile(userID)
         this.props.getUserStatus(userID)
@@ -45,7 +46,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 let mapStateToProps = (state: RootStoreType): MapStatePropsType => {
     return {
         profile: state.profile.profile,
-        status: state.profile.status
+        status: state.profile.status,
+        authorizesUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 
