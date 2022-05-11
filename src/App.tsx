@@ -12,23 +12,28 @@ import ProfileContainer, {withRouter} from "./components/Profile/ProfileContaine
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
 import {connect} from "react-redux";
-import {getAuthUserData} from "./redux/auth-reducer";
 import {ThunkType} from "./redux/usersReducer";
 import {compose} from "redux";
 import {RootStoreType} from "./redux/reduxStore";
+import {initializeApp} from "./redux/app-reducer";
+import {Prealoder} from "./components/common/Prealoder/Prealoder";
 
 
 type AppPropsType = {
     navbar: NavbarReducerType
-    getAuthUserData: () => ThunkType
+    initialized: boolean
+    initializeApp: () => ThunkType
 }
 
 class App extends Component<AppPropsType> {
     componentDidMount() {
-        this.props.getAuthUserData()
+        this.props.initializeApp()
     }
 
     render() {
+        if (!this.props.initialized){
+            return <Prealoder/>
+        }
         return (
             <div className={"app_wrapper"}>
                 <HeaderContainer/>
@@ -53,10 +58,11 @@ class App extends Component<AppPropsType> {
 }
 
 const mapStateToProps = (state: RootStoreType) => ({
-    navbar: state.navbar
+    navbar: state.navbar,
+    initialized: state.app.initialized
 })
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps, {getAuthUserData})
+    connect(mapStateToProps, {initializeApp})
 )(App)

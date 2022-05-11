@@ -44,7 +44,7 @@ export const setAuthUserData = (id: number | null, login: string | null, email: 
 // thunk creator
 export const getAuthUserData = (): ThunkType => {
     return (dispatch) => {
-        authAPI.me()
+        return authAPI.me()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
