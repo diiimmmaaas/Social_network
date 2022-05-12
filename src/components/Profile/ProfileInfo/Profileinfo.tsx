@@ -4,6 +4,7 @@ import {ProfileType} from "../../../redux/profileReducer";
 import {Prealoder} from "../../common/Prealoder/Prealoder";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {ThunkType} from "../../../redux/usersReducer";
+import {ProfileStatusWithHooks} from "./ProfileStatus/ProfileStatusWithHooks";
 
 export type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -23,7 +24,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                     <div>{props.profile.fullName}</div>
                 </div>
                 <div className={styles.description}>
-                    <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
+                    <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} />
                 </div>
             </div>
         </>
