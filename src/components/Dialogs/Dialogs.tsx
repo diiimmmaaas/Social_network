@@ -65,4 +65,4 @@ export const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormDataType>>
     )
 }
 
-const AddMessageFormRedux = reduxForm<AddMessageFormDataType>({form: 'dialodAddMessageForm'})(AddMessageForm)
+const AddMessageFormRedux = reduxForm<AddMessageFormDataType>({form: 'dialogAddMessageForm'})(AddMessageForm)

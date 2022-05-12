@@ -2,7 +2,6 @@ import React from 'react';
 import {
     SendMessageActionType,
     sendMessageCreator,
-    UpdateNewMessageBodyActionType,
 } from '../../redux/dialogsReducer';
 import {Dialogs} from "./Dialogs";
 import { connect } from 'react-redux';
@@ -18,7 +17,7 @@ let mapStateToProps = (state: RootStoreType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: (action: UpdateNewMessageBodyActionType | SendMessageActionType) => void) => {
+let mapDispatchToProps = (dispatch: (action: SendMessageActionType) => void) => {
     return {
         sendMessage: (newMessageBody: string) => {
             dispatch(sendMessageCreator(newMessageBody))

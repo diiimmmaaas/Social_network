@@ -38,7 +38,7 @@ export type MessagesDataType = {
     text: string
 }
 
-export const dialogsReducer = (state: dialogsReducerType = initialState, action: UpdateNewMessageBodyActionType | SendMessageActionType): dialogsReducerType => {
+export const dialogsReducer = (state: dialogsReducerType = initialState, action: SendMessageActionType): dialogsReducerType => {
 
     switch (action.type) {
         case SEND_MESSAGE:
@@ -53,10 +53,6 @@ export const dialogsReducer = (state: dialogsReducerType = initialState, action:
     }
 }
 
-export type UpdateNewMessageBodyActionType = {
-    type: 'UPDATE_NEW_MESSAGE_BODY'
-    newBody: string
-}
 export type SendMessageActionType = {
     type: 'SEND_MESSAGE'
     newMessageBody: string
