@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import {ThunkType} from "../../../../redux/usersReducer";
 
 
@@ -10,6 +10,10 @@ type ProfileStatusPropsType = {
 export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
     const [editMode, seEditMode]= useState<boolean>(false)
     const [status, setStatus]= useState(props.status)
+
+    useEffect( () => {
+        setStatus(props.status)
+    }, [props.status] )
 
     const activateEditMode = () => {
         seEditMode(true)
