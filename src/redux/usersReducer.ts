@@ -1,4 +1,4 @@
-import {AnyAction} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {userAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {RootStoreType} from "./reduxStore";
@@ -141,43 +141,38 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number): 
     userId
 })
 
+
 // typing thunk
 export type ThunkType = ThunkAction<void, RootStoreType, unknown, AnyAction>
 
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
+    dispatch(toggleIsFollowingProgress(true, userId))
+    let response = await apiMethod(userId)
+    if (response.resultCode === 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(toggleIsFollowingProgress(false, userId))
+}
+
 // thunk creators
 export const requestUsers = (currentPage: number, pageSize: number): ThunkType => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetching(true))
 
-        userAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(setIsFetching(false))
-            dispatch(setUsers(data.items))
-            dispatch(setUsersTotalCount(data.totalCount))
-        })
+        let response = await userAPI.getUsers(currentPage, pageSize)
+        dispatch(setIsFetching(false))
+        dispatch(setUsers(response.items))
+        dispatch(setUsersTotalCount(response.totalCount))
     }
 }
 export const follow = (userId: number): ThunkType => {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingProgress(true, userId))
-        userAPI.followUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleIsFollowingProgress(false, userId))
-            })
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userId, userAPI.followUser.bind(userAPI), followSuccess)
     }
 }
 export const unfollow = (userId: number): ThunkType => {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingProgress(true, userId))
-        userAPI.unfollowUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(toggleIsFollowingProgress(false, userId))
-            })
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userId, userAPI.unfollowUser.bind(userAPI), unfollowSuccess)
     }
 }
 

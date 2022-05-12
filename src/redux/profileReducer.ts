@@ -106,28 +106,25 @@ export const deletePost = (postId:string) => ({type: DELETE_POST, postId} as con
 
 // thunk creator
 export const getUserProfile = (userID: string): ThunkType => {
-    return (dispatch) => {
-        profileAPI.getProfile(userID).then(response => {
-            dispatch(setUsersProfile(response.data))
-        })
+    return async (dispatch) => {
+        let response = await profileAPI.getProfile(userID)
+        dispatch(setUsersProfile(response.data))
     }
 }
 
 export const getUserStatus = (userID: string): ThunkType => {
-    return (dispatch) => {
-        profileAPI.getStatus(userID).then(response => {
-            dispatch(setUserStatus(response.data))
-        })
+    return async (dispatch) => {
+        let response = await profileAPI.getStatus(userID)
+        dispatch(setUserStatus(response.data))
     }
 }
 
 export const updateUserStatus = (status: string): ThunkType => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then(response => {
-            if (response.data.resultCode === 0){
-                dispatch(setUserStatus(status))
-            }
-        })
+    return async (dispatch) => {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0){
+            dispatch(setUserStatus(status))
+        }
     }
 }
 
