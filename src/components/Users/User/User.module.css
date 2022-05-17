@@ -1,0 +1,46 @@
+.user {
+    padding: 10px;
+    display: flex;
+}
+
+.userAvatar {
+
+}
+
+.userPhoto {
+
+}
+
+.userPhoto img{
+    width: 100px;
+}
+
+.userFollowingButton {
+    display: flex;
+    justify-content: center;
+}
+
+.userFollowingButton button {
+
+}
+
+.userInfo {
+
+}
+
+.userName {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.userStatus {
+
+}
+
+.userLocation {
+
+}
+
+.userLocation span{
+    display: block;
+}

@@ -1,4 +1,5 @@
 .app_wrapper {
+    min-height: 100vh;
     margin: 0 auto;
     width: 80%;
     display: grid;
@@ -13,7 +14,9 @@
 
 .app_wrapper_content {
     grid-area: c;
-    border: 2px solid green;
+    border: 1px solid #0e6dfd;
+    border-radius: 4px;
+
 }
 
 

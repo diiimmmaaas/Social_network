@@ -9,7 +9,7 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Prealoder} from "../common/Prealoder/Prealoder";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
     getCurrentPage,
@@ -22,6 +22,7 @@ import {
 
 interface UsersPropsType {
     users: Array<UsersType>
+    portionSize: number
     totalUsersCount: number
     pageSize: number
     currentPage: number
@@ -73,7 +74,7 @@ const mapStateToProps = (state: RootStoreType) => {
 }
 
 
-export default compose<React.ComponentType> (
+export default compose<React.ComponentType>(
     withAuthRedirect,
     connect(mapStateToProps, {requestUsers, follow, unfollow, setCurrentPage})
 )(UsersContainer)

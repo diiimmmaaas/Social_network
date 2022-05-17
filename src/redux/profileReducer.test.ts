@@ -34,3 +34,4 @@ test( 'new post should be corrected', () => {
     expect(newState.postsData[2].message).toBe('it-kamasutra')
 } )
 
+

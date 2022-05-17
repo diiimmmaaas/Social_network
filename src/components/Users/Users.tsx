@@ -1,7 +1,7 @@
 import React from 'react';
 import {ThunkType, UsersType} from "../../redux/usersReducer";
 import {Paginator} from "./Paginator";
-import {User} from "./User";
+import {User} from "./User/User";
 
 
 export type UsersFunctionalPropsType = {

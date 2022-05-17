@@ -1,9 +1,16 @@
 .dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
 
 }
-.dialogs_items{
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.dialogs_items {
     padding: 10px;
 
 }
@@ -21,6 +28,6 @@
 
 }
 
-.message{
+.message {
 
 }

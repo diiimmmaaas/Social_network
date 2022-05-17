@@ -1,5 +1,17 @@
 .userBanner {
-    border: 1px solid;
     width: 100%;
-    border-radius: 8px
+    display: flex;
+    margin: 10px 0;
+}
+
+.avatar {
+    padding: 5px;
+}
+
+.photo {
+    width: 100px;
+    height: 100px;
+}
+.description {
+    padding: 5px;
 }
