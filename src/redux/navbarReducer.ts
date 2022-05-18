@@ -20,7 +20,9 @@ export type FriendsCountDataType = {
     name: string
 }
 
-export const navbarReducer = (state: NavbarReducerType = initialState, action: any) => {
+export type NavbarActionType = any
+
+export const navbarReducer = (state: NavbarReducerType = initialState, action: NavbarActionType) => {
 
     return state
 }

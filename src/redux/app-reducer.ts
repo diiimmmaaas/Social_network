@@ -1,5 +1,6 @@
-import {ThunkType} from "./usersReducer";
+
 import {getAuthUserData} from "./auth-reducer";
+import { ThunkType } from "./reduxStore";
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 
@@ -12,9 +13,9 @@ export type appReducerType = {
     initialized: boolean
 }
 
-export type ActionType = InitializedSuccessType
+export type AppActionType = InitializedSuccessType
 
-export const appReducer = (state: appReducerType = initialState, action: ActionType): appReducerType => {
+export const appReducer = (state: appReducerType = initialState, action: AppActionType): appReducerType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {

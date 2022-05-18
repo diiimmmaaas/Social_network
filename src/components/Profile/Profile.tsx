@@ -3,7 +3,8 @@ import styles from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/Profileinfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profileReducer";
-import {ThunkType} from "../../redux/usersReducer";
+import { ThunkType } from "../../redux/reduxStore";
+
 
 type ProfilePropsType = {
     profile: ProfileType | null

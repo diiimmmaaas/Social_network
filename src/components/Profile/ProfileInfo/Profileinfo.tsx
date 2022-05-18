@@ -2,9 +2,9 @@ import styles from "./Profileinfo.module.css";
 import React, { ChangeEvent } from "react";
 import {ProfileType} from "../../../redux/profileReducer";
 import {Prealoder} from "../../common/Prealoder/Prealoder";
-import {ThunkType} from "../../../redux/usersReducer";
 import {ProfileStatusWithHooks} from "./ProfileStatus/ProfileStatusWithHooks";
 import userPhoto from "../../../assets/img/user.png";
+import { ThunkType } from "../../../redux/reduxStore";
 
 export type ProfileInfoPropsType = {
     profile: ProfileType | null

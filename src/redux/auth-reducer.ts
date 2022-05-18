@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
-import {ThunkType} from "./usersReducer";
 import {stopSubmit} from "redux-form";
+import { ThunkType } from "./reduxStore";
+import {AxiosError} from "axios";
 
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA'
 
@@ -19,9 +20,9 @@ export type authReducerType = {
     isAuth: boolean
 }
 
-export type ActionType = SetUserDataType
+export type AuthActionType = SetUserDataType
 
-export const authReducer = (state: authReducerType = initialState, action: ActionType): authReducerType => {
+export const authReducer = (state: authReducerType = initialState, action: AuthActionType): authReducerType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -44,11 +45,15 @@ export const setAuthUserData = (id: number | null, login: string | null, email: 
 // thunk creator
 export const getAuthUserData = (): ThunkType => {
     return async (dispatch) => {
-        let response = await authAPI.me()
+        try {
+            let response = await authAPI.me()
 
-        if (response.data.resultCode === 0) {
-            let {id, login, email} = response.data.data
-            dispatch(setAuthUserData(id, login, email, true))
+            if (response.data.resultCode === 0) {
+                let {id, login, email} = response.data.data
+                dispatch(setAuthUserData(id, login, email, true))
+            }
+        } catch (error: any) {
+            throw new Error(error)
         }
     }
 }

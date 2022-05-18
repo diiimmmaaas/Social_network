@@ -11,9 +11,8 @@ import {withRouter} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
 import {connect} from "react-redux";
-import {ThunkType} from "./redux/usersReducer";
 import {compose} from "redux";
-import {RootStoreType} from "./redux/reduxStore";
+import {RootStoreType, ThunkType} from "./redux/reduxStore";
 import {initializeApp} from "./redux/app-reducer";
 import {Prealoder} from "./components/common/Prealoder/Prealoder";
 

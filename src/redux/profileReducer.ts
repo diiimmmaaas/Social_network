@@ -1,6 +1,6 @@
 import {profileAPI} from "../api/api";
-import {ThunkType} from "./usersReducer";
 import {v1} from "uuid";
+import { ThunkType } from "./reduxStore";
 
 const ADD_POST = 'ADD_POST'
 const SET_PROFILE = 'SET_PROFILE'
@@ -54,13 +54,13 @@ export type PostDataType = {
     likeCounts: number
 }
 
-export type ActionType = AddPostActionType
+export type ProfileActionType = AddPostActionType
     | SetProfileActionType
     | SetStatusActionType
     | DeletePostActionType
     | SavePhotoAccessActionType
 
-export const profileReducer = (state: ProfileReducerType = initialState, action: ActionType): ProfileReducerType => {
+export const profileReducer = (state: ProfileReducerType = initialState, action: ProfileActionType): ProfileReducerType => {
 
     switch (action.type) {
         case ADD_POST:

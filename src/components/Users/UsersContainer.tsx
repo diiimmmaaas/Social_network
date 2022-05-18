@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
-import {RootStoreType} from "../../redux/reduxStore";
+import {RootStoreType, ThunkType} from "../../redux/reduxStore";
 import {
     follow,
     requestUsers, setCurrentPage,
-    ThunkType, unfollow,
+    unfollow,
     UsersType
 } from '../../redux/usersReducer';
 import React from "react";

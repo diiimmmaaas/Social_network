@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from "./Header.module.css";
 import {NavLink} from "react-router-dom";
-import {ThunkType} from "../../redux/usersReducer";
 import logo from '../../assets/img/logo.jpg'
+import { ThunkType } from '../../redux/reduxStore';
 
 
 export type HeaderPropsType = {

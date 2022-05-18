@@ -1,5 +1,6 @@
 import React from 'react';
-import {ThunkType, UsersType} from "../../redux/usersReducer";
+import { ThunkType } from '../../redux/reduxStore';
+import {UsersType} from "../../redux/usersReducer";
 import {Paginator} from "./Paginator";
 import {User} from "./User/User";
 

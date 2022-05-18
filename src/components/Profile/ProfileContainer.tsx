@@ -1,10 +1,9 @@
 import React, {JSXElementConstructor} from "react"
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {RootStoreType} from "../../redux/reduxStore";
+import {RootStoreType, ThunkType} from "../../redux/reduxStore";
 import {getUserProfile, getUserStatus, ProfileType, savePhoto, updateUserStatus} from "../../redux/profileReducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {ThunkType} from "../../redux/usersReducer";
 import {compose} from "redux";
 
 

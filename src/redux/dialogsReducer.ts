@@ -38,8 +38,11 @@ export type MessagesDataType = {
     text: string
 }
 
+export type DialogsActionType = SendMessageActionType
+
+
 // reducer
-export const dialogsReducer = (state: dialogsReducerType = initialState, action: SendMessageActionType): dialogsReducerType => {
+export const dialogsReducer = (state: dialogsReducerType = initialState, action: DialogsActionType): dialogsReducerType => {
 
     switch (action.type) {
         case SEND_MESSAGE:

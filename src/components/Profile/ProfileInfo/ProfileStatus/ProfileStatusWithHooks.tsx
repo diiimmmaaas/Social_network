@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
-import {ThunkType} from "../../../../redux/usersReducer";
+import { ThunkType } from '../../../../redux/reduxStore'
+
 
 
 type ProfileStatusPropsType = {
