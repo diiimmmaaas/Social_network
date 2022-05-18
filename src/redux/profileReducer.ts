@@ -2,10 +2,11 @@ import {profileAPI} from "../api/api";
 import {ThunkType} from "./usersReducer";
 import {v1} from "uuid";
 
-const ADD_POST = 'ADD-POST'
-const SET_PROFILE = 'SET-PROFILE'
-const SET_STATUS = 'SET-STATUS'
+const ADD_POST = 'ADD_POST'
+const SET_PROFILE = 'SET_PROFILE'
+const SET_STATUS = 'SET_STATUS'
 const DELETE_POST = 'DELETE_POST'
+const SAVE_PHOTO_ACCESS = 'SAVE_PHOTO_ACCESS'
 
 let initialState = {
     postsData: [
@@ -24,8 +25,8 @@ export type ProfileReducerType = {
 }
 
 export type ProfileType = {
-    aboutMe: string
-    contacts: {
+    aboutMe?: string
+    contacts?: {
         facebook: string,
         website: null,
         vk: string,
@@ -35,14 +36,16 @@ export type ProfileType = {
         github: string,
         mainLink: null
     }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName?: string
+    userId?: number
+    photos: ProfilePhotosType
+}
+
+type ProfilePhotosType = {
+    small: string
+    large: string
 }
 
 export type PostDataType = {
@@ -53,8 +56,9 @@ export type PostDataType = {
 
 export type ActionType = AddPostActionType
     | SetProfileActionType
-| SetStatusActionType
-| DeletePostActionType
+    | SetStatusActionType
+    | DeletePostActionType
+    | SavePhotoAccessActionType
 
 export const profileReducer = (state: ProfileReducerType = initialState, action: ActionType): ProfileReducerType => {
 
@@ -82,7 +86,12 @@ export const profileReducer = (state: ProfileReducerType = initialState, action:
         case DELETE_POST:
             return {
                 ...state,
-                postsData: state.postsData.filter(p => p.id !== action.postId )
+                postsData: state.postsData.filter(p => p.id !== action.postId)
+            }
+        case SAVE_PHOTO_ACCESS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
             }
         default:
             return state
@@ -94,14 +103,18 @@ export type AddPostActionType = ReturnType<typeof addPost>
 export type SetProfileActionType = ReturnType<typeof setUsersProfile>
 export type SetStatusActionType = ReturnType<typeof setUserStatus>
 export type DeletePostActionType = ReturnType<typeof deletePost>
+export type SavePhotoAccessActionType = ReturnType<typeof savePhotoAccess>
 
 
 // action creator
 export const addPost = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 export const setUsersProfile = (profile: ProfileType) => ({type: SET_PROFILE, profile} as const)
-export const setUserStatus = (status:string) => ({type: SET_STATUS, status} as const)
-export const deletePost = (postId:string) => ({type: DELETE_POST, postId} as const)
-
+export const setUserStatus = (status: string) => ({type: SET_STATUS, status} as const)
+export const deletePost = (postId: string) => ({type: DELETE_POST, postId} as const)
+export const savePhotoAccess = (photos: ProfilePhotosType) => ({
+    type: SAVE_PHOTO_ACCESS,
+    photos
+} as const)
 
 
 // thunk creator
@@ -122,8 +135,17 @@ export const getUserStatus = (userID: string): ThunkType => {
 export const updateUserStatus = (status: string): ThunkType => {
     return async (dispatch) => {
         let response = await profileAPI.updateStatus(status)
-        if (response.data.resultCode === 0){
+        if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status))
+        }
+    }
+}
+
+export const savePhoto = (file: File): ThunkType => {
+    return async (dispatch) => {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoAccess(response.data.data.photos))
         }
     }
 }

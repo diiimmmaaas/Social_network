@@ -91,55 +91,35 @@ export const usersReducer = (state: UsersReducerType = initialState, action: Act
     }
 }
 
-export type FollowActionType = {
-    type: 'FOLLOW'
-    userId: number
-}
-export type UnFollowActionType = {
-    type: 'UNFOLLOW'
-    userId: number
-}
-export type setUsersActionType = {
-    type: 'SET-USERS'
-    users: Array<UsersType>
-}
-export type setCurrentPageType = {
-    type: 'SET-CURRENT-PAGE'
-    currentPage: number
-}
-export type setUsersTotalCountType = {
-    type: 'SET-USERS-TOTAL-COUNT'
-    totalCount: number
-}
-export type setIsFetchingACType = {
-    type: 'SET-IS-FETCHING'
-    isFetching: boolean
-}
-export type toggleIsFollowingProgressACType = {
-    type: 'TOGGLE-IS-FOLLOWING-PROGRESS'
-    isFetching: boolean
-    userId: number
-}
 
+
+// typing action creators
+export type FollowActionType = ReturnType<typeof followSuccess>
+export type UnFollowActionType = ReturnType<typeof unfollowSuccess>
+export type setUsersActionType = ReturnType<typeof setUsers>
+export type setCurrentPageType = ReturnType<typeof setCurrentPage>
+export type setUsersTotalCountType = ReturnType<typeof setUsersTotalCount>
+export type setIsFetchingACType = ReturnType<typeof setIsFetching>
+export type toggleIsFollowingProgressACType = ReturnType<typeof toggleIsFollowingProgress>
 
 // action creators
-export const followSuccess = (userId: number): FollowActionType => ({type: FOLLOW, userId})
-export const unfollowSuccess = (userId: number): UnFollowActionType => ({type: UNFOLLOW, userId})
-export const setUsers = (users: Array<UsersType>): setUsersActionType => ({type: SET_USERS, users})
-export const setCurrentPage = (currentPage: number): setCurrentPageType => ({type: SET_CURRENT_PAGE, currentPage})
-export const setUsersTotalCount = (totalCount: number): setUsersTotalCountType => ({
+export const followSuccess = (userId: number) => ({type: FOLLOW, userId} as const)
+export const unfollowSuccess = (userId: number) => ({type: UNFOLLOW, userId} as const)
+export const setUsers = (users: Array<UsersType>) => ({type: SET_USERS, users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setUsersTotalCount = (totalCount: number) => ({
     type: SET_USERS_TOTAL_COUNT,
     totalCount
-})
-export const setIsFetching = (isFetching: boolean): setIsFetchingACType => ({
+} as const)
+export const setIsFetching = (isFetching: boolean) => ({
     type: SET_IS_FETCHING,
     isFetching
-})
-export const toggleIsFollowingProgress = (isFetching: boolean, userId: number): toggleIsFollowingProgressACType => ({
+} as const)
+export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
     userId
-})
+} as const)
 
 
 // typing thunk

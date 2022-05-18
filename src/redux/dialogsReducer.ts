@@ -38,6 +38,7 @@ export type MessagesDataType = {
     text: string
 }
 
+// reducer
 export const dialogsReducer = (state: dialogsReducerType = initialState, action: SendMessageActionType): dialogsReducerType => {
 
     switch (action.type) {
@@ -53,9 +54,9 @@ export const dialogsReducer = (state: dialogsReducerType = initialState, action:
     }
 }
 
-export type SendMessageActionType = {
-    type: 'SEND_MESSAGE'
-    newMessageBody: string
-}
+// typing action creator
+export type SendMessageActionType = ReturnType<typeof sendMessageCreator>
 
-export const sendMessageCreator = (newMessageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, newMessageBody})
+
+// action creator
+export const sendMessageCreator = (newMessageBody: string) => ({type: SEND_MESSAGE, newMessageBody})

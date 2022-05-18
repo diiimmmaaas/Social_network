@@ -37,7 +37,7 @@ export const authReducer = (state: authReducerType = initialState, action: Actio
 export type SetUserDataType = ReturnType<typeof setAuthUserData>
 
 export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
-    type: SET_USER_DATA, payload: {id, login, email, isAuth}
+    type: SET_USER_DATA, payload: {id, login, email, isAuth} as const
 })
 
 
