@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, Suspense} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from 'react-router-dom';
@@ -6,9 +6,8 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {NavbarReducerType} from "./redux/navbarReducer";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer, {withRouter} from "./components/Profile/ProfileContainer";
+import {withRouter} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
 import {connect} from "react-redux";
@@ -17,6 +16,10 @@ import {compose} from "redux";
 import {RootStoreType} from "./redux/reduxStore";
 import {initializeApp} from "./redux/app-reducer";
 import {Prealoder} from "./components/common/Prealoder/Prealoder";
+
+// React.lazy
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 
 type AppPropsType = {
@@ -31,7 +34,7 @@ class App extends Component<AppPropsType> {
     }
 
     render() {
-        if (!this.props.initialized){
+        if (!this.props.initialized) {
             return <Prealoder/>
         }
         return (
@@ -41,10 +44,11 @@ class App extends Component<AppPropsType> {
                 <div className={"app_wrapper_content"}>
                     <Routes>
                         <Route path="/profile"
+                               element={<Suspense fallback={<div>Loading...</div>}><ProfileContainer/></Suspense>}/>
+                        <Route path='/profile/:userID'
                                element={<ProfileContainer/>}/>
-                        <Route path='/profile/:userID' element={<ProfileContainer/>}/>
                         <Route path='/dialogs/*'
-                               element={<DialogsContainer/>}/>
+                               element={<Suspense fallback={<div>Loading...</div>}><DialogsContainer/></Suspense>}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/users/*" element={<UsersContainer/>}/>
